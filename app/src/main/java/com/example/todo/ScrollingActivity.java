@@ -10,26 +10,32 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 
-import com.example.todo.databinding.ActivityScrollingBinding;
 
 public class ScrollingActivity extends AppCompatActivity {
 
-    private ActivityScrollingBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityScrollingBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_scrolling);
 
-        Toolbar toolbar = binding.toolbar;
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
-        toolBarLayout.setTitle(getTitle());
 
-        FloatingActionButton fab = binding.fab;
+        Button btnComplete = findViewById(R.id.btn_complete);
+
+        btnComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(v, "Task Added Successfully", Snackbar.LENGTH_SHORT)
+                .setAction("Undo", null).show();
+            }
+        });
+
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
