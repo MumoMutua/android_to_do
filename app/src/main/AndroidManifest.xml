@@ -9,22 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TODO">
-
-
+        <activity android:name=".MotionActivity"></activity>
         <activity
             android:name=".ActivityNewToDo"
-            android:theme="@style/Theme.TODO.NoActionBar"/>
-
+            android:theme="@style/Theme.TODO.NoActionBar" />
         <activity
             android:name=".ScrollingActivity"
             android:label="@string/title_activity_scrolling"
             android:theme="@style/Theme.TODO.NoActionBar" />
-
         <activity
             android:name=".Activity2"
-            android:theme="@style/Theme.TODO.NoActionBar"/>
-
-        <activity android:name=".MainActivity"
+            android:theme="@style/Theme.TODO.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/Theme.TODO.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

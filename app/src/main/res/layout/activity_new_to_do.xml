@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
+        android:id="@+id/LayoutTitle"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -29,6 +29,7 @@
         app:layout_constraintTop_toBottomOf="@id/textView11">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="e.g. Mow Lawn" />
@@ -42,7 +43,7 @@
         android:layout_margin="16dp"
         android:text="Description"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/LayoutTitle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
@@ -57,6 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView8">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDetails"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="What is the ToDo about?" />
@@ -73,26 +75,26 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/firstFile"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_margin="16dp"
         android:background="@drawable/dotted_border"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/secondFile"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@drawable/ic_baseline_access_time" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/secondFile"
         android:layout_width="0dp"
         android:layout_height="150dp"
         android:layout_margin="16dp"
         android:background="@drawable/dotted_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintStart_toEndOf="@+id/firstFile"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
         app:srcCompat="@drawable/ic_baseline_cancel" />
 
@@ -105,50 +107,51 @@
         android:layout_marginStart="56dp"
         android:text="Subtask"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/firstFile" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/Subtasks"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/AddSubtask"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editSubtasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add Subtask" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/AddSubtask"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintBottom_toBottomOf="@+id/Subtasks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toTopOf="@+id/Subtasks"
         app:srcCompat="@drawable/ic_round_add_circle" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_cancel"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button3"
+        app:layout_constraintEnd_toStartOf="@+id/createTask"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/createTask"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -156,5 +159,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button2" />
+        app:layout_constraintStart_toEndOf="@+id/btn_cancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>
