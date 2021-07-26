@@ -2,6 +2,7 @@ package com.example.todo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,8 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class ActivityNewToDo extends AppCompatActivity {
 
+    EditText editTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,7 +30,7 @@ public class ActivityNewToDo extends AppCompatActivity {
         ImageView firstFile = findViewById(R.id.firstFile);
         ImageView secondFile = findViewById(R.id.secondFile);
 
-        EditText editTitle = findViewById(R.id.editTitle);
+        editTitle = findViewById(R.id.editTitle);
         TextInputEditText editDetails = findViewById(R.id.editDetails);
 //        TextInputEditText editSubtasks = findViewById(R.id.Subtasks);
 
@@ -39,11 +42,51 @@ public class ActivityNewToDo extends AppCompatActivity {
 
                 newNote.setTitle(editTitle.getText().toString());
                 newNote.setDescription(editDetails.getText().toString());
+                newNote.setId(1);
 
-                Toast.makeText(ActivityNewToDo.this,newNote.getTitle(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(ActivityNewToDo.this, ScrollingActivity.class);
+                intent.putExtra("TITLE", newNote.getTitle());
+                intent.putExtra("DETAILS", newNote.getDescription());
 
-                Snackbar.make(v, newNote.getDescription(),Snackbar.LENGTH_LONG).show();
+                startActivity(intent);
+                finish();
+
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (editTitle.getText().toString().trim().isEmpty()){
+
+            Toast.makeText(this, "Draft not Saved", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Note Saved to Draft", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }
