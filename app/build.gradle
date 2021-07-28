@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+//    apply plugin: 'io.objectbox' // after applying Android plugin
 }
 
 android {

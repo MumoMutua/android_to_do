@@ -1,16 +1,8 @@
 package com.example.todo.auth.ui.login;
 
 import android.app.Activity;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -22,10 +14,18 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.todo.auth.R;
-import com.example.todo.auth.ui.login.LoginViewModel;
-import com.example.todo.auth.ui.login.LoginViewModelFactory;
-import com.example.todo.auth.databinding.ActivityLoginBinding;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.todo.ActivityNewToDo;
+import com.example.todo.MainActivity;
+import com.example.todo.R;
+import com.example.todo.RegisterActivity;
+import com.example.todo.Settings.SharedPrefConfig;
+import com.example.todo.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,7 +45,17 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
+        final Button registerButton = binding.btnRegister;
         final ProgressBar loadingProgressBar = binding.loading;
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = (new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(intent);
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -127,7 +137,14 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+
+        SharedPrefConfig myPreferenceStorage = new SharedPrefConfig(getApplicationContext());
+        myPreferenceStorage.setLoggingInStatus(true);
+
+        Intent intent = new Intent(getApplicationContext(), ActivityNewToDo.class);
+        startActivity(intent);
+        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_SHORT).show();
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
