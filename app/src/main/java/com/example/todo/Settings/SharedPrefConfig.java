@@ -45,4 +45,21 @@ public class SharedPrefConfig {
 
     }
 
+    public boolean authenticate(String username, String password){
+
+        String email = sharedPreferences.getString(USER_EMAIL, "");
+        String current_pass = sharedPreferences.getString(USER_PASSWORD, "");
+
+        if (email.contentEquals(username) && current_pass.contentEquals(password)){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
+    public void logout() {
+
+    }
 }
