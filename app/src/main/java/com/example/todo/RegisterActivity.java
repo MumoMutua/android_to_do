@@ -3,7 +3,6 @@ package com.example.todo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Button btnLogin = findViewById(R.id.btnLogin);
+        Button btnLogin = findViewById(R.id.btnLogIn);
         Button btnRegister = findViewById(R.id.btnRegister);
 
         inputName = findViewById(R.id.inputName);
@@ -69,7 +68,9 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(this,"User"+" "+ name +" "+ "registered successfully", Toast.LENGTH_SHORT).show();
 
 
-        Intent intent = new Intent(RegisterActivity.this,ActivityNewToDo.class);
+        Intent intent = new Intent(RegisterActivity.this,Activity2.class);
+        intent.putExtra("userName", name);
         startActivity(intent);
+        finish();
     }
 }

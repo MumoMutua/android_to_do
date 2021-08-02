@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Activity2 extends AppCompatActivity {
+
+    TextView welcomeText;
 
     int numberOfSearches = 0;
 
@@ -19,6 +22,9 @@ public class Activity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
+
+        welcomeText = findViewById(R.id.welcomeText);
+
 
         EditText inputSearch = findViewById(R.id.inputSearch);
 
@@ -37,4 +43,15 @@ public class Activity2 extends AppCompatActivity {
     {
         return numberOfSearches ++;
     }
+
+    @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        if (getIntent().hasExtra("userName")) {
+            welcomeText.setText(getIntent().getStringExtra("userName"));
+        }
+    }
+
 }

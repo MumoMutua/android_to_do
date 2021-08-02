@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.todo.Activity2;
 import com.example.todo.ActivityNewToDo;
 import com.example.todo.MainActivity;
 import com.example.todo.R;
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
-        final Button registerButton = binding.btnRegister;
+        final Button registerButton = binding.btnLogIn;
         final ProgressBar loadingProgressBar = binding.loading;
 
         registerButton.setOnClickListener(new View.OnClickListener() {
@@ -146,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
 
             myPreferenceStorage.setLoggingInStatus(true);
 
-            Intent intent = new Intent(getApplicationContext(), ActivityNewToDo.class);
+            Intent intent = new Intent(getApplicationContext(), Activity2.class);
             startActivity(intent);
             Toast.makeText(getApplicationContext(), "Welcome", Toast.LENGTH_SHORT).show();
         }
@@ -163,7 +164,7 @@ public class LoginActivity extends AppCompatActivity {
         SharedPrefConfig myPreferenceStorage = new SharedPrefConfig(getApplicationContext());
         myPreferenceStorage.setLoggingInStatus(true);
 
-        Intent intent = new Intent(getApplicationContext(), ActivityNewToDo.class);
+        Intent intent = new Intent(getApplicationContext(), Activity2.class);
         startActivity(intent);
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_SHORT).show();
 
