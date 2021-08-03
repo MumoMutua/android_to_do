@@ -18,14 +18,19 @@ import com.example.todo.models.Note;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
+import io.objectbox.Box;
+
 public class ActivityNewToDo extends AppCompatActivity {
 
     EditText editTitle;
+    private Box<Note> notesBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_to_do);
+
+        notesBox = ObjectBox.get().boxFor(Note.class);
 
         Button btnCancel=findViewById(R.id.btn_cancel);
         Button btnCreateTasks = findViewById(R.id.createTask);
@@ -46,7 +51,8 @@ public class ActivityNewToDo extends AppCompatActivity {
 
                 newNote.setTitle(editTitle.getText().toString());
                 newNote.setDescription(editDetails.getText().toString());
-                newNote.setId(1);
+
+                notesBox.put(newNote); // creates a new note in the database
 
                 Intent intent = new Intent(ActivityNewToDo.this, ScrollingActivity.class);
                 intent.putExtra("TITLE", newNote.getTitle());

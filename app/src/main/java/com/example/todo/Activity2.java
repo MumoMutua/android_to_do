@@ -12,16 +12,26 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.todo.models.Note;
+
+import io.objectbox.Box;
+
 public class Activity2 extends AppCompatActivity {
 
     TextView welcomeText;
 
     int numberOfSearches = 0;
+    private Box<Note> notesBox;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2);
+
+        notesBox = ObjectBox.get().boxFor(Note.class);
+
+        Toast.makeText(this, "You have " + notesBox.count() + "To do's", Toast.LENGTH_SHORT).show();
 
         welcomeText = findViewById(R.id.welcomeText);
 
