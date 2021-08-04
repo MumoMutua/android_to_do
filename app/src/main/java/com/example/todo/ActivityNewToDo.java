@@ -1,21 +1,16 @@
 package com.example.todo;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.todo.Settings.SharedPrefConfig;
 import com.example.todo.models.Note;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
 import io.objectbox.Box;
@@ -32,7 +27,7 @@ public class ActivityNewToDo extends AppCompatActivity {
 
         notesBox = ObjectBox.get().boxFor(Note.class);
 
-        Button btnCancel=findViewById(R.id.btn_cancel);
+        Button btnCancel=findViewById(R.id.btn_delete);
         Button btnCreateTasks = findViewById(R.id.createTask);
         ImageView imageAddSubtask = findViewById(R.id.AddSubtask);
 
@@ -52,11 +47,10 @@ public class ActivityNewToDo extends AppCompatActivity {
                 newNote.setTitle(editTitle.getText().toString());
                 newNote.setDescription(editDetails.getText().toString());
 
-                notesBox.put(newNote); // creates a new note in the database
+                long id = notesBox.put(newNote); // creates a new note in the database
 
                 Intent intent = new Intent(ActivityNewToDo.this, ScrollingActivity.class);
-                intent.putExtra("TITLE", newNote.getTitle());
-                intent.putExtra("DETAILS", newNote.getDescription());
+                intent.putExtra("ID", id);
 
                 startActivity(intent);
                 finish();

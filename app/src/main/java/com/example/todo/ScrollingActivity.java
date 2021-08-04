@@ -1,6 +1,5 @@
 package com.example.todo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,22 +13,45 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.todo.Settings.SharedPrefConfig;
+import com.example.todo.models.Note;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import io.objectbox.Box;
 
 
 public class ScrollingActivity extends AppCompatActivity {
 
     CollapsingToolbarLayout toolBarLayout;
     TextView txtDetails;
-
+    long idToUse = 0;
+    private Box<Note> notesBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        notesBox = ObjectBox.get().boxFor(Note.class);
+
         setContentView(R.layout.activity_scrolling);
+
+        Button btnDelete = findViewById(R.id.btn_delete);
+
+        btnDelete.setOnClickListener(v -> {
+            // TODO: Add alert to ask user if he/ she really wants to delete this
+
+            if (idToUse == 0){
+                Toast.makeText(this, "No Todo Selected", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                notesBox.remove(idToUse);
+                Snackbar.make(v, "To do deleted successfully", Snackbar.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ActivityNewToDo.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,12 +74,15 @@ public class ScrollingActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (getIntent().hasExtra("TITLE")){
-            toolBarLayout.setTitle(getIntent().getStringExtra("TITLE"));
+        if (getIntent().hasExtra("ID")){
+
+            idToUse = getIntent().getLongExtra("ID",0);
+            Note savedNote = notesBox.get(idToUse);
+
+            toolBarLayout.setTitle(savedNote.getTitle());
+            txtDetails.setText(savedNote.getDescription());
         }
-        if (getIntent().hasExtra("DETAILS")){
-            txtDetails.setText(getIntent().getStringExtra("DETAILS"));
-        }
+
     }
 
     @Override
