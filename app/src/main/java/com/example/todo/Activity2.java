@@ -1,6 +1,8 @@
 package com.example.todo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +14,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.todo.adapters.NotesAdapter;
 import com.example.todo.models.Note;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.objectbox.Box;
 
@@ -22,7 +28,9 @@ public class Activity2 extends AppCompatActivity {
 
     int numberOfSearches = 0;
     private Box<Note> notesBox;
-
+    private List<Note> todos = new ArrayList<>();
+    RecyclerView notesRecyclerView;
+    NotesAdapter notesAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +41,10 @@ public class Activity2 extends AppCompatActivity {
 
         Toast.makeText(this, "You have " + notesBox.count() + "To do's", Toast.LENGTH_SHORT).show();
 
-        welcomeText = findViewById(R.id.welcomeText);
+        notesRecyclerView = findViewById(R.id.notes_recycler);
+        notesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        welcomeText = findViewById(R.id.welcomeText);
 
         EditText inputSearch = findViewById(R.id.inputSearch);
 
@@ -60,8 +70,15 @@ public class Activity2 extends AppCompatActivity {
         super.onResume();
 
         if (getIntent().hasExtra("userName")) {
-            welcomeText.setText(getIntent().getStringExtra("userName"));
+            welcomeText.setText("Hello" + (getIntent().getStringExtra("userName")));
         }
+
+        todos = notesBox.getAll();
+        notesAdapter = new NotesAdapter(todos, Activity2.this);
+        notesRecyclerView.setAdapter(notesAdapter);
+        notesAdapter.notifyDataSetChanged();
+
+        notesRecyclerView.setAdapter(notesAdapter);
     }
 
 }

@@ -180,33 +180,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/notes_recycler"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:scrollbarFadeDuration="1000"
-        android:fadeScrollbars="true"
-        android:scrollbarSize="2dp"
-        android:scrollbarThumbVertical="@color/design_default_color_primary">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-            <include layout="@layout/single_to_do" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </ScrollView>
+        tools:itemCount="5"
+        tools:listitem="@layout/single_to_do" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
