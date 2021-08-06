@@ -139,19 +139,19 @@
         app:srcCompat="@drawable/ic_round_add_circle" />
 
     <Button
-        android:id="@+id/btn_delete"
+        android:id="@+id/btnCancel"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="Cancel"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/createTask"
+        app:layout_constraintEnd_toStartOf="@+id/btnCreate"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/createTask"
+        android:id="@+id/btnCreate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -159,5 +159,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_delete" />
+        app:layout_constraintStart_toEndOf="@+id/btnCancel" />
 </androidx.constraintlayout.widget.ConstraintLayout>

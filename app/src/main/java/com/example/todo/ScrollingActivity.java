@@ -1,14 +1,17 @@
 package com.example.todo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -36,21 +39,13 @@ public class ScrollingActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_scrolling);
 
-        Button btnDelete = findViewById(R.id.btn_delete);
+        Button btnDelete = findViewById(R.id.btnCancel);
 
         btnDelete.setOnClickListener(v -> {
             // TODO: Add alert to ask user if he/ she really wants to delete this
 
-            if (idToUse == 0){
-                Toast.makeText(this, "No Todo Selected", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                notesBox.remove(idToUse);
-                Snackbar.make(v, "To do deleted successfully", Snackbar.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, ActivityNewToDo.class);
-                startActivity(intent);
-                finish();
-            }
+            alertUser();
+
         });
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -66,8 +61,21 @@ public class ScrollingActivity extends AppCompatActivity {
         .setAction("Undo", null).show());
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (idToUse == 0) {
+                    Toast.makeText(ScrollingActivity.this, "Nothing to edit", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Intent intent = new Intent(ScrollingActivity.this, ActivityNewToDo.class);
+                    intent.putExtra("ID", idToUse);
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override
@@ -84,6 +92,46 @@ public class ScrollingActivity extends AppCompatActivity {
         }
 
     }
+    public void deleteTodo(){
+
+        if (idToUse == 0){
+            Toast.makeText(this, "No Task Selected", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            notesBox.remove(idToUse);
+            Toast.makeText(this, "Task Deleted ", Toast.LENGTH_SHORT).show();
+            onBackPressed();
+            finish();
+//                Intent intent = new Intent(this, Activity.class);
+//                startActivity(intent);
+//                finish();
+        }
+
+    }
+    public void alertUser(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ScrollingActivity.this);
+        builder.setTitle("Delete ToDo")
+                .setMessage("Are you sure you want to delete this message?");
+
+        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                deleteTodo();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(ScrollingActivity.this, "Deleting Stopped", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

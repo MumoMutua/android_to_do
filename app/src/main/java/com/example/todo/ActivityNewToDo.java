@@ -13,12 +13,16 @@ import android.widget.Toast;
 import com.example.todo.models.Note;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Date;
+
 import io.objectbox.Box;
 
 public class ActivityNewToDo extends AppCompatActivity {
 
     EditText editTitle;
     private Box<Note> notesBox;
+    TextInputEditText editDetails, editSubtasks;
+    Note newNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,35 +31,36 @@ public class ActivityNewToDo extends AppCompatActivity {
 
         notesBox = ObjectBox.get().boxFor(Note.class);
 
-        Button btnCancel=findViewById(R.id.btn_delete);
-        Button btnCreateTasks = findViewById(R.id.createTask);
+        Button btnCancel=findViewById(R.id.btnCancel);
+        Button btnCreateTasks = findViewById(R.id.btnCreate);
         ImageView imageAddSubtask = findViewById(R.id.AddSubtask);
 
         ImageView firstFile = findViewById(R.id.firstFile);
         ImageView secondFile = findViewById(R.id.secondFile);
 
         editTitle = findViewById(R.id.editTitle);
-        TextInputEditText editDetails = findViewById(R.id.editDetails);
-//        TextInputEditText editSubtasks = findViewById(R.id.Subtasks);
+        editDetails = findViewById(R.id.editDetails);
+        editSubtasks = findViewById(R.id.editSubtasks);
 
-        Note newNote = new Note();
+        btnCancel.setOnClickListener(v -> {
+            onBackPressed();
+            finish();
+        });
 
-        btnCreateTasks.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                newNote.setTitle(editTitle.getText().toString());
-                newNote.setDescription(editDetails.getText().toString());
+        btnCreateTasks.setOnClickListener(v -> {
 
-                long id = notesBox.put(newNote); // creates a new note in the database
+            newNote.setTitle(editTitle.getText().toString());
+            newNote.setDescription(editDetails.getText().toString());
 
-                Intent intent = new Intent(ActivityNewToDo.this, ScrollingActivity.class);
-                intent.putExtra("ID", id);
+            long id = notesBox.put(newNote); // creates a new note in the database
 
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(ActivityNewToDo.this, ScrollingActivity.class);
+            intent.putExtra("ID", id);
 
-            }
+            startActivity(intent);
+            finish();
+
         });
     }
 
@@ -66,8 +71,21 @@ public class ActivityNewToDo extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-
         super.onResume();
+
+        if (getIntent().hasExtra("ID")){
+
+            Note note = notesBox.get(getIntent().getLongExtra("ID", 0));
+
+            editTitle.setText(newNote.getTitle());
+            editDetails.setText(newNote.getDescription());
+
+        }
+        else {
+            newNote = new Note();
+            newNote.setCreated_at(new Date().toString());
+        }
+        newNote.setUpdated_at(new Date().toString());
     }
 
     @Override

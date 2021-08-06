@@ -1,6 +1,7 @@
 package com.example.todo.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.todo.R;
+import com.example.todo.ScrollingActivity;
 import com.example.todo.models.Note;
 
 import org.jetbrains.annotations.NotNull;
@@ -22,6 +24,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
 
     private List<Note> todos;
     private Context context;
+
 
     public NotesAdapter(List<Note> todos, Context context) {
         this.todos = todos;
@@ -47,6 +50,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
         holder.title.setText(todo.getTitle());
         holder.details.setText(todo.getDescription());
         holder.time.setText("1 hour ago");
+        holder.id = todo.getId();
 
     }
 
@@ -58,6 +62,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, details, time;
+        long id;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -71,6 +76,15 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.ViewHolder> 
                 public boolean onLongClick(View v) {
                     Toast.makeText(context, "Have Fun", Toast.LENGTH_SHORT).show();
                     return true;
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, ScrollingActivity.class);
+                    intent.putExtra("ID", id);
+                    context.startActivity(intent);
                 }
             });
 
