@@ -1,12 +1,11 @@
 package com.example.todo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.todo.Settings.SharedPrefConfig;
 import com.example.todo.auth.ui.login.LoginActivity;
@@ -30,24 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.inputPassword);
         inputConfirmPassword = findViewById(R.id.inputConfirm);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
+        btnLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnRegister.setOnClickListener(v -> {
 
-              /**
-                Adding function to register a new user
-                */
+          /**
+            Adding function to register a new user
+            */
 
-              registerUser();
-            }
+          registerUser();
         });
     }
     private void registerUser(){
@@ -68,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(this,"User"+" "+ name +" "+ "registered successfully", Toast.LENGTH_SHORT).show();
 
 
-        Intent intent = new Intent(RegisterActivity.this,Activity2.class);
+        Intent intent = new Intent(RegisterActivity.this, Activity2.class);
         intent.putExtra("userName", name);
         startActivity(intent);
         finish();

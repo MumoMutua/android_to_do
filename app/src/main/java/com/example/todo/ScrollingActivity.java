@@ -111,7 +111,7 @@ public class ScrollingActivity extends AppCompatActivity {
     public void alertUser(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ScrollingActivity.this);
-        builder.setTitle("Delete ToDo")
+        final AlertDialog.Builder builder1 = builder.setTitle("Delete ToDo")
                 .setMessage("Are you sure you want to delete this message?");
 
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
